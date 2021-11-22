@@ -118,4 +118,13 @@ describe('DELETE /api/v1/books/{bookId} endpoint', () => {
     // Assert
     expect(res.statusCode).toEqual(200);
   });
+  test('controller failed to  delete the book with bokkID =2 the book not found', async () => {
+    // Arrange
+    const bookId = 2;
+    // Act
+    const res = await request(app).delete(`/api/v1/books/${bookId}`);
+
+    // Assert
+    expect(res.statusCode).toEqual(404);
+  });
 });
