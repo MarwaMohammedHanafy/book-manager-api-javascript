@@ -35,9 +35,17 @@ const updateBook = async (req, res) => {
   res.status(204).json(book);
 };
 
+// User Story  - Delete Book By Id Solution
+const deletedBook = async (req, res) => {
+  const bookId = req.params.bookId;
+  const book = await bookService.deleteBook(bookId);
+  res.json(book).status(200);
+};
+
 module.exports = {
   getBooks,
   getBook,
   saveBook,
   updateBook, // User Story 4 - Update Book By Id Solution
+  deletedBook, // User Story  - Delete Book By Id Solution
 };

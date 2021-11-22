@@ -109,13 +109,13 @@ describe('POST /api/v1/books endpoint', () => {
 });
 
 describe('DELETE /api/v1/books/{bookId} endpoint', () => {
-  test('controller successfully delete the  book ', async () => {
+  test('controller successfully delete the book with bokkID =2', async () => {
     // Arrange
     const bookId = 2;
     // Act
-    const res = await request(app).deleteBook(`/api/v1/books/${bookId}`);
+    const res = await request(app).delete(`/api/v1/books/${bookId}`);
 
     // Assert
-    expect(res.body).toEqual(dummyBookData[1]);
+    expect(res.statusCode).toEqual(200);
   });
 });

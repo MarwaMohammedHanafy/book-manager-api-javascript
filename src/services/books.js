@@ -23,9 +23,19 @@ const updateBook = async (bookId, book) => {
   });
 };
 
+// User Story  - Delete Book By Id Solution
+const deleteBook = async (bookId) => {
+  return Book.destroy( {
+    where: {
+      bookId,
+    },
+  });
+};
+
 module.exports = {
   getBooks,
   getBook,
   saveBook,
   updateBook, // User Story 4 - Update Book By Id Solution
+  deleteBook,
 };
