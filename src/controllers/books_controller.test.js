@@ -1,4 +1,4 @@
-const {bookService} = require('../services');
+const { bookService } = require('../services');
 jest.mock('../services/books');
 
 
@@ -88,7 +88,7 @@ describe('POST /api/v1/books endpoint', () => {
   test('status code successfully 201 for saving a valid book', async () => {
     // Act
     const res = await request(app).post('/api/v1/books')
-        .send({bookId: 3, title: 'Fantastic Mr. Fox', author: 'Roald Dahl'});
+      .send({ bookId: 3, title: 'Fantastic Mr. Fox', author: 'Roald Dahl' });
 
     // Assert
     expect(res.statusCode).toEqual(201);
@@ -101,7 +101,7 @@ describe('POST /api/v1/books endpoint', () => {
     });
     // Act
     const res = await request(app).post('/api/v1/books')
-        .send({title: 'Fantastic Mr. Fox', author: 'Roald Dahl'}); // No bookId
+      .send({ title: 'Fantastic Mr. Fox', author: 'Roald Dahl' }); // No bookId
 
     // Assert
     expect(res.statusCode).toEqual(400);
@@ -109,20 +109,22 @@ describe('POST /api/v1/books endpoint', () => {
 });
 
 describe('DELETE /api/v1/books/{bookId} endpoint', () => {
-  test('controller successfully delete the book with bokkID =2', async () => {
+  test('controller successfully delete the book with bokkID =3', async () => {
     // Arrange
-    const bookId = 2;
+    const bookId = 3;
     // Act
-    const res = await request(app).delete(`/api/v1/books/${bookId}`);
+    const res = await request(app).delete('/api/v1/books/${bookId}');
 
     // Assert
     expect(res.statusCode).toEqual(200);
   });
-  test('controller failed to  delete the book with bokkID =2 the book not found', async () => {
-    // Arrange
-    const bookId = 2;
+  test('status code 404 when delete book ', async () => {
+    // Arrange - enforce exception thrown
+    bookService.deleteBook = jest.fn().mockImplementation(() => {
+      throw new Error('Error saving book');
+    });
     // Act
-    const res = await request(app).delete(`/api/v1/books/${bookId}`);
+    const res = await request(app).delete('/api/v1/books'); // No bookId
 
     // Assert
     expect(res.statusCode).toEqual(404);

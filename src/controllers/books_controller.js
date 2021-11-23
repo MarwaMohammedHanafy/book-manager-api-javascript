@@ -1,4 +1,4 @@
-const {bookService} = require('../services');
+const { bookService } = require('../services');
 
 const getBooks = async (req, res) => {
   const books = await bookService.getBooks();
@@ -8,7 +8,6 @@ const getBooks = async (req, res) => {
 const getBook = async (req, res) => {
   const bookId = req.params.bookId;
   const book = await bookService.getBook(Number(bookId));
-
   if (book) {
     res.json(book).status(200);
   } else {
@@ -22,8 +21,8 @@ const saveBook = async (req, res) => {
     const book = await bookService.saveBook(bookToBeSaved);
     res.status(201).json(book);
   }
-  catch(error) {
-    res.status(400).json({message: error.message});
+  catch (error) {
+    res.status(400).json({ message: error.message });
   }
 };
 
@@ -38,8 +37,14 @@ const updateBook = async (req, res) => {
 // User Story  - Delete Book By Id Solution
 const deletedBook = async (req, res) => {
   const bookId = req.params.bookId;
-  const book = await bookService.deleteBook(bookId);
-  res.json(book).status(200);
+  try {
+    const isbookdeleted = await bookService.deleteBook(Number(bookId));
+    res.status(200).json('book has been deleted');
+  }
+  catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+
 };
 
 module.exports = {
