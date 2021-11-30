@@ -1,0 +1,53 @@
+swagger: '2.0'
+info:
+  description: >-
+    This is a API documentation for Book-Manager
+  version: 1.0.0
+  title: Book-Manager-API
+tags:
+  - name: Books
+    description: Everything about your Book
+    externalDocs:
+      description: Find out more
+schemes:
+  - http
+paths:
+  /api/v1/books:
+    get:
+      summary: Get all books
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: An array of books
+    post:
+      summary: Create Book
+      parameters:
+        - in: body
+          name: body
+          description: Created book object
+          required: true
+      responses:
+        default:
+          description: successful operation
+  /api/v1/books/{bookId}:
+    get:
+      summary: Find book by ID
+      responses:
+        '200':
+          description: successful operation
+        '404':
+          description: Book not found
+    put:
+      summary: Update book by ID 
+      responses:
+        '204':
+          description: book updated 
+    delete:
+      summary: Delete book by ID 
+      responses:
+        '400':
+          description: Invalid book ID
+        '200':
+          description: book has been deleted 
+
